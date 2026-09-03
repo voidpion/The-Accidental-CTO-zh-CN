@@ -6,7 +6,8 @@ import { Loader2, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // This is the URL of the book that will be displayed in the sidebar and content area
-const BOOK_URL = "/test.md"
+// Read the Chinese edition while keeping the original English source untouched.
+const BOOK_URL = "/book-zh-cn.md"
 
 const Index = () => {
   const { content, chapters, loading, error } = useMarkdownContent(BOOK_URL);

@@ -18,7 +18,7 @@ from reportlab.platypus import BaseDocTemplate, Image, PageBreak, PageTemplate, 
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "The Accidental CTO.zh-CN.md"
-OUT = ROOT / "output/pdf/The Accidental CTO.zh-CN.pdf"
+OUT = ROOT / "The Accidental CTO.zh-CN.pdf"
 TMP = ROOT / "tmp/pdfs"
 PAGE = portrait((499, 709))
 
