@@ -1,2 +1,8 @@
 coverimage/The Accidental CTO.pdf
 coverimage/fd506046-d71b-4066-a8ed-8f0fb7011d7d_upscayl_9x_high-fidelity-4x.png
+
+# Local/editor and generated files
+.DS_Store
+Icon*
+.venv/
+tmp/

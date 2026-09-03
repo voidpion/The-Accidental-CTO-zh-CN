@@ -1,46 +1,50 @@
+# The Accidental CTO 中文翻译版
 
-# **The Accidental CTO**
+本项目 Fork 自 [subhashchy/The-Accidental-CTO](https://github.com/subhashchy/The-Accidental-CTO)。由于原项目暂未提供中文版本，我使用 AI 在保留英文原文的基础上完成了这份中文翻译，力求保持作者原意、语气与技术表达。
 
+翻译仍可能存在疏漏或不够准确之处。如果你发现问题，欢迎提交 Issue 或 Pull Request，帮助我们一起改进。英文原文请参阅 [`README.en.md`](README.en.md) 及对应英文书稿。
 
+# **意外成为 CTO**
 
-## **How I Scaled from Zero to a Million Stores on Dukaan, Without a CS 
-I never set out to be a CTO. In fact, I didn’t even have a computer science degree. But somewhere between firefighting server crashes at 3 a.m. and obsessing over replication lag graphs, I found myself building systems that would eventually power over a **million online stores** at Dukaan.
+## **我是如何在没有计算机科学学位的情况下，让 Dukaan 从零扩展到一百万家店铺**
 
-This book, *The Accidental CTO*, is my behind-the-scenes account of that journey. It’s not a dry academic manual filled with abstract diagrams. Instead, it’s a story-driven handbook — one that mixes late-night startup battles with the **hard system design lessons** that only come from being in the trenches.
+我从未打算成为 CTO。事实上，我甚至没有计算机科学学位。但在一次次凌晨 3 点处理服务器崩溃、反复盯着复制延迟图表的过程中，我意外地开始构建一套最终能够支撑 Dukaan **一百万家线上店铺**的系统。
 
-From scaling a scrappy MVP to running massive distributed pipelines, I’ll take you through the challenges we faced and the decisions that made (or nearly broke) us.
+这本《意外成为 CTO》记录了那段旅程的幕后故事。它不是一本充满抽象图表、枯燥乏味的学术手册，而是一部由故事驱动的实践指南——把创业公司深夜里的鏖战，与只有亲自置身一线才能学到的**硬核系统设计经验**交织在一起。
 
----
-
-### What You’ll Learn Inside
-
-* **Scaling applications**: How we went from thousands to millions of users without falling apart.
-* **Replication, sharding, caching, queues**: When to use them, when *not* to, and what tradeoffs they carry.
-* **Observability as survival**: Why metrics, logs, traces, SLAs, and SLOs aren’t optional — they’re lifelines.
-* **Resilience engineering**: Circuit breakers, retries, graceful degradation — designing for failure, not against it.
-* **The hidden costs of cloud**: Why at scale, your AWS bill can become your biggest investor, and when it makes sense to go self-hosted.
-* **The consistency/availability/latency triangle**: Why you can never fully win, and how to navigate the tradeoffs in real systems.
+从扩展一个简陋的 MVP，到运行规模庞大的分布式流水线，我会带你走过我们经历的挑战，以及那些成就了我们、也险些毁掉我们的决策。
 
 ---
 
-### Why I Wrote This Book
+### 你将在书中学到什么
 
-I didn’t want to write another "theory of distributed systems" book. There are already plenty of those.
-
-What I wanted to share is the **practical side** of system design — the part you only learn when a real company, with real customers and real money at stake, is on fire. The part where you’re not solving toy interview questions but dealing with:
-
-* angry merchants refreshing dashboards,
-* Kafka pipelines silently choking on one bad partition,
-* a database replica 10 minutes behind and nobody knowing why.
-
-This is the stuff no textbook teaches you.
+* **应用扩展：**我们如何在系统不崩溃的情况下，从数千名用户扩展到数百万名用户。
+* **复制、分片、缓存与队列：**什么时候该用，什么时候*不该*用，以及它们各自带来的权衡。
+* **把可观测性当作生存之道：**为什么指标、日志、追踪、SLA 和 SLO 不是可有可无的装饰，而是维系系统生命的纽带。
+* **韧性工程：**熔断器、重试、优雅降级——面向故障进行设计，而不是假设故障不会发生。
+* **云服务的隐性成本：**为什么在达到一定规模后，AWS 账单可能成为你最大的投资者，以及什么时候自托管才更合理。
+* **一致性、可用性与延迟的三角关系：**为什么你不可能同时把三者都做到极致，以及如何在真实系统中处理这些取舍。
 
 ---
 
-### Who This Book Is For
+### 我为什么写这本书
 
-Whether you’re a **software engineer**, **architect**, or **startup founder**, I wrote this book to help you see distributed systems not as academic puzzles, but as **living, evolving machines** that you can actually build, operate, and grow.
+我不想再写一本“分布式系统理论”书籍——这样的书已经很多了。
 
-If you’ve ever wondered *how real companies actually scale* — not in theory, but in practice — this is my candid, first-hand story.
+我想分享的是**系统设计的实践面**：只有当一家真实的公司、面对真实的客户、承受着真实的资金风险并且正处于火场时，你才会学到的那一面。你面对的不是面试里的玩具问题，而是：
 
-And maybe, just maybe, you’ll find a bit of yourself in *The Accidental CTO*.
+* 愤怒的商家不断刷新后台仪表盘；
+* Kafka 流水线被一个故障分区悄无声息地卡住；
+* 数据库副本落后整整 10 分钟，却没有人知道原因。
+
+这些，都是教科书不会教你的东西。
+
+---
+
+### 这本书写给谁
+
+无论你是**软件工程师**、**架构师**还是**创业公司创始人**，我写这本书都是希望你不要把分布式系统看成学术谜题，而是把它当作一台**能够真正构建、运营并不断成长的、鲜活而持续演进的机器**。
+
+如果你曾经好奇，*真实的公司究竟是如何扩展的*——不是理论上，而是在实践中——这就是我亲历亲述的故事。
+
+也许，你会在《意外成为 CTO》中看到自己的某一部分。
