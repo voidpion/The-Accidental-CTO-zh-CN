@@ -14,9 +14,11 @@ interface Chapter {
 interface BookSidebarProps {
   chapters: Chapter[];
   activeChapter: string;
+  language: "zh" | "en";
+  onLanguageChange: (language: "zh" | "en") => void;
 }
 
-export const BookSidebar = ({ chapters, activeChapter }: BookSidebarProps) => {
+export const BookSidebar = ({ chapters, activeChapter, language, onLanguageChange }: BookSidebarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const SidebarContent = () => (
@@ -26,10 +28,40 @@ export const BookSidebar = ({ chapters, activeChapter }: BookSidebarProps) => {
           <div className="flex items-center gap-3">
             <div>
               <h2 className="font-bold text-sidebar-foreground">The Accidental CTO</h2>
-              <p className="text-xs text-sidebar-foreground/60">By Subhash Choudhary</p>
+              <p className="text-xs text-sidebar-foreground/60">
+                {language === "zh" ? "中文译本 · Subhash Choudhary" : "By Subhash Choudhary"}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-1">
+            <div className="flex items-center rounded-md border border-sidebar-border p-0.5 text-xs" aria-label="Language switcher">
+              <button
+                type="button"
+                onClick={() => onLanguageChange("zh")}
+                aria-pressed={language === "zh"}
+                className={cn(
+                  "rounded px-2 py-1 transition-colors",
+                  language === "zh"
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                    : "text-sidebar-foreground/60 hover:text-sidebar-foreground"
+                )}
+              >
+                中文
+              </button>
+              <button
+                type="button"
+                onClick={() => onLanguageChange("en")}
+                aria-pressed={language === "en"}
+                className={cn(
+                  "rounded px-2 py-1 transition-colors",
+                  language === "en"
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                    : "text-sidebar-foreground/60 hover:text-sidebar-foreground"
+                )}
+              >
+                English
+              </button>
+            </div>
             <ThemeToggle />
             <a
               href="https://github.com/hitesh-c/The-Accidental-CTO/blob/main/The%20Accidental%20CTO.md"
@@ -58,6 +90,13 @@ export const BookSidebar = ({ chapters, activeChapter }: BookSidebarProps) => {
             <a
               key={chapter.id}
               href={`#${chapter.id}`}
+              onClick={(event) => {
+                const target = document.getElementById(chapter.id);
+                if (!target) return;
+                event.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.history.replaceState(null, "", `#${chapter.id}`);
+              }}
               className={cn(
                 "w-full text-left px-4 py-3 rounded-lg transition-all duration-200 block",
                 "hover:bg-sidebar-accent hover:translate-x-1",

@@ -5,26 +5,26 @@ import { useMarkdownContent } from "@/hooks/useMarkdownContent";
 import { Loader2, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// This is the URL of the book that will be displayed in the sidebar and content area
-// Read the Chinese edition while keeping the original English source untouched.
-const BOOK_URL = "/book-zh-cn.md"
+type Language = "zh" | "en";
 
 const Index = () => {
-  const { content, chapters, loading, error } = useMarkdownContent(BOOK_URL);
+  const [language, setLanguage] = useState<Language>("zh");
+  const bookUrl = language === "zh" ? "/book-zh-cn.md" : "/test.md";
+  const { content, chapters, loading, error } = useMarkdownContent(bookUrl);
   const [activeChapter, setActiveChapter] = useState("");
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     // Observe headings for active chapter tracking
-    const headings = document.querySelectorAll(".prose h1, .prose h2, .prose h3");
+    const headings = document.querySelectorAll(".markdown-content h1, .markdown-content h2, .markdown-content h3");
     
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Array.from(headings).indexOf(entry.target);
-            if (index !== -1 && chapters[index]) {
-              setActiveChapter(chapters[index].id);
+            const chapter = chapters.find((item) => item.id === entry.target.id);
+            if (chapter) {
+              setActiveChapter(chapter.id);
             }
           }
         });
@@ -35,6 +35,10 @@ const Index = () => {
     headings.forEach((heading) => observer.observe(heading));
     return () => observer.disconnect();
   }, [content, chapters]);
+
+  useEffect(() => {
+    setActiveChapter("");
+  }, [language]);
 
   useEffect(() => {
     // Show scroll to top button when user scrolls down
@@ -77,6 +81,8 @@ const Index = () => {
       <BookSidebar
         chapters={chapters}
         activeChapter={activeChapter}
+        language={language}
+        onLanguageChange={setLanguage}
       />
       <main className="top-20">
         <BookContent content={content} />

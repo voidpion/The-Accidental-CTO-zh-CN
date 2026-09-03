@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { uniqueHeadingId } from "@/lib/headingIds";
 
 interface Chapter {
   id: string;
@@ -38,24 +39,17 @@ export const useMarkdownContent = (url: string) => {
         };
 
         // Helper to create slug from heading text
-        const slugify = (text: string) => {
-          return stripMarkdown(text)
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-        };
-
+        const seenIds = new Map<string, number>();
         const parsedChapters: Chapter[] = matches
-          .filter((match) => {
+          .map((match) => {
             const title = match[2].trim();
-            // Filter out very short headings and non-chapter headings
-            return title.length > 5 && !title.match(/^[A-Z\s]+$/);
+            return {
+              id: uniqueHeadingId(stripMarkdown(title), seenIds),
+              title: stripMarkdown(title),
+              level: match[1].length,
+            };
           })
-          .map((match) => ({
-            id: slugify(match[2]),
-            title: stripMarkdown(match[2]),
-            level: match[1].length,
-          }));
+          .filter((chapter) => chapter.title.length > 5 && !chapter.title.match(/^[A-Z\s]+$/));
 
         setChapters(parsedChapters);
         setError(null);
