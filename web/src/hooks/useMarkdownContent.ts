@@ -22,11 +22,18 @@ export const useMarkdownContent = (url: string) => {
           throw new Error("Failed to fetch content");
         }
         const text = await response.text();
-        setContent(text);
+        // The book contains a very large inline Base64 illustration. Keep the
+        // original source untouched, but use a lightweight local image in the
+        // browser so Markdown parsing does not freeze or blank the page.
+        const browserText = text.replace(
+          /!\[([^\]]*)\]\(data:image\/[^;]+;base64,[^)]+\)/g,
+          "![Book illustration](/cover.png)"
+        );
+        setContent(browserText);
 
         // Parse chapters from markdown
         const chapterRegex = /^(#{1,3})\s+(.+)$/gm;
-        const matches = [...text.matchAll(chapterRegex)];
+        const matches = [...browserText.matchAll(chapterRegex)];
         
         // Helper to strip markdown formatting from titles
         const stripMarkdown = (text: string) => {

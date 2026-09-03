@@ -18,7 +18,7 @@ const headingText = (children: unknown): string => {
 
 export const BookContent = ({ content }: BookContentProps) => {
   const seenIds = new Map<string, number>();
-  const Heading = ({ level, children, ...props }: { level: 1 | 2 | 3; children?: ReactNode; [key: string]: unknown }) => {
+  const Heading = ({ level, children, id: _markdownId, ...props }: { level: 1 | 2 | 3; children?: ReactNode; id?: string; [key: string]: unknown }) => {
     const Tag = `h${level}` as "h1" | "h2" | "h3";
     const id = uniqueHeadingId(headingText(children), seenIds);
     return <Tag id={id} {...props}>{children}</Tag>;

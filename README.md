@@ -4,6 +4,20 @@
 
 翻译仍可能存在疏漏或不够准确之处。如果你发现问题，欢迎提交 Issue 或 Pull Request，帮助我们一起改进。英文原文请参阅 [`README.en.md`](README.en.md) 及对应英文书稿。
 
+## 本地阅读站
+
+项目内置了一个本地阅读站，默认打开中文版，并支持中英文切换与目录跳转。
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+启动后打开终端显示的本地地址，通常是 <http://127.0.0.1:5173/>。在页面左上角可以切换“中文”和“English”；点击左侧目录即可跳转到右侧对应章节。
+
+中文 PDF 位于仓库根目录：[`The Accidental CTO.zh-CN.pdf`](The%20Accidental%20CTO.zh-CN.pdf)。
+
 # **意外成为 CTO**
 
 ## **我是如何在没有计算机科学学位的情况下，让 Dukaan 从零扩展到一百万家店铺**
